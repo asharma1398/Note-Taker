@@ -21,12 +21,12 @@ app.use(express.json());
 // ===============================================================
 app.use(express.static("public"));
 
-// main page
+// main page - html
 app.get("*", (req, res) => {
     res.sendFile(__dirname, "/public/index.html");
   });
 
-// notes page 
+// notes page - html
 app.get("/notes", (req, res) => {
     res.sendFile(__dirname + "/public/notes.html");
 });
@@ -47,21 +47,20 @@ app.post("/api/notes", (req, res) => {
           return console.log(error);
         }
         else {
-            
             note = JSON.parse(data);
-            console.log(note);
         }      
 
         req.body.id = note[note.length - 1].id + 1;
 
         note.push(req.body);
 
-        console.log("note", note);
+        // console.log("note", note);
 
         fs.writeFile(__dirname + "/db/db.json", JSON.stringify(note), (error, data) => {
             if (error) {
                 return console.log(error);
             } else {
+                res.sendFile(__dirname + "/db/db.json");
                 console.log("Success!")
             }
     
@@ -70,6 +69,7 @@ app.post("/api/notes", (req, res) => {
       });
     
 });
+
 
 // server starts listening
 // ===============================================================
