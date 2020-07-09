@@ -1,6 +1,8 @@
 # Note Taker
 
 [My GitHub](https://github.com/asharma1398)
+<br>
+[Deployed Application](https://note-taker-asharma1398.herokuapp.com/)
 
 ### Overview 
 ***
