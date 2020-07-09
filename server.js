@@ -43,7 +43,7 @@ app.post("/api/notes", (req, res) => {
     fs.readFile(__dirname + "/db/db.json", "utf8", (error, data) => {
 
         if (error) {
-          return console.log(error);
+          console.log(error);
         }
         else {
             note = JSON.parse(data);
@@ -55,8 +55,9 @@ app.post("/api/notes", (req, res) => {
 
         fs.writeFile(__dirname + "/db/db.json", JSON.stringify(note), (error, data) => {
             if (error) {
-                return console.log(error);
-            } else {
+                console.log(error);
+            } 
+            else {
                 res.sendFile(__dirname + "/db/db.json");
                 console.log("Your note has been added!")
             }
@@ -68,9 +69,9 @@ app.post("/api/notes", (req, res) => {
 // delete notes - api 
 app.delete("/api/notes/:id", function (req, res) {
 
-    fs.readFile(__dirname + '/db/db.json', "utf8", (err, data) => {
-        if (err) {
-            return console.log(err);
+    fs.readFile(__dirname + '/db/db.json', "utf8", (error, data) => {
+        if (error) {
+            console.log(error);
         } else {
 
             let newNote = JSON.parse(data).filter(notes => {
@@ -81,7 +82,7 @@ app.delete("/api/notes/:id", function (req, res) {
 
             fs.writeFile(__dirname + '/db/db.json', JSON.stringify(newNote), (error, data) => {
                 if (error) {
-                    return console.log(err);
+                    console.log(err);
                 } else {
                     res.sendFile(__dirname + "/db/db.json");
                     console.log("Your note has been deleted.");
@@ -92,9 +93,8 @@ app.delete("/api/notes/:id", function (req, res) {
 });
 
 
-// server starts listening
+// SERVER LISTENING 
 // ===============================================================
 app.listen(PORT, () => {
     console.log("App listening on PORT " + PORT);
 });
-  
