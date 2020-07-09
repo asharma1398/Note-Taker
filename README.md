@@ -1,4 +1,4 @@
-# Note-Taker
+# Note Taker
 
 [My GitHub](https://github.com/asharma1398)
 
