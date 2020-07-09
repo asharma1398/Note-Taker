@@ -67,7 +67,7 @@ app.post("/api/notes", (req, res) => {
 });
 
 // delete notes - api 
-app.delete("/api/notes/:id", function (req, res) {
+app.delete("/api/notes/:id", (req, res) => {
 
     fs.readFile(__dirname + '/db/db.json', "utf8", (error, data) => {
         if (error) {
@@ -82,7 +82,7 @@ app.delete("/api/notes/:id", function (req, res) {
 
             fs.writeFile(__dirname + '/db/db.json', JSON.stringify(newNote), (error, data) => {
                 if (error) {
-                    console.log(err);
+                    console.log(error);
                 } else {
                     res.sendFile(__dirname + "/db/db.json");
                     console.log("Your note has been deleted.");
@@ -91,7 +91,6 @@ app.delete("/api/notes/:id", function (req, res) {
         }
     });
 });
-
 
 // SERVER LISTENING 
 // ===============================================================
