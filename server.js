@@ -1,7 +1,8 @@
-// dependency
+// dependencies
 // ===============================================================
 var express = require("express");
 var fs = require("fs");
+const e = require("express");
 
 // needed variable(s)
 // ==============================================================
@@ -31,14 +32,12 @@ app.get("/notes", (req, res) => {
     res.sendFile(__dirname + "/public/notes.html");
 });
 
-// get notes api
+// get notes - api
 app.get("/api/notes", (req, res) => {
     res.sendFile(__dirname + "/db/db.json");
-
-    
 });
 
-// post notes api
+// post notes - api
 app.post("/api/notes", (req, res) => {
     
     fs.readFile(__dirname + "/db/db.json", "utf8", (error, data) => {
@@ -54,20 +53,42 @@ app.post("/api/notes", (req, res) => {
 
         note.push(req.body);
 
-        // console.log("note", note);
-
         fs.writeFile(__dirname + "/db/db.json", JSON.stringify(note), (error, data) => {
             if (error) {
                 return console.log(error);
             } else {
                 res.sendFile(__dirname + "/db/db.json");
-                console.log("Success!")
+                console.log("Your note has been added!")
             }
     
-        })
-
+        });
       });
-    
+});
+
+// delete notes - api 
+app.delete("/api/notes/:id", function (req, res) {
+
+    fs.readFile(__dirname + '/db/db.json', "utf8", (err, data) => {
+        if (err) {
+            return console.log(err);
+        } else {
+
+            let newNote = JSON.parse(data).filter(notes => {
+                if (notes.id != req.params.id) {
+                    return notes;
+                }
+            });
+
+            fs.writeFile(__dirname + '/db/db.json', JSON.stringify(newNote), (error, data) => {
+                if (error) {
+                    return console.log(err);
+                } else {
+                    res.sendFile(__dirname + "/db/db.json");
+                    console.log("Your note has been deleted.");
+                }
+            });
+        }
+    });
 });
 
 
